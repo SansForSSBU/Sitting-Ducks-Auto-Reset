@@ -93,7 +93,7 @@ def endless_duck_tourney():
 if mode == 0:
     duck_deathmatch(find_ducks())
 
-elif mode == 2:
+if mode == 2:
     while True:
         for i in range(20):
             make_duck()
@@ -104,7 +104,7 @@ elif mode == 2:
 duck_creation_interval = 15.0 # seconds between making new ducks
 duck_finding_delay = 1.0 # seconds before trying to find new duck
 duck_testing_delay = 20.0 # seconds before starting the test
-elif mode == 1:
+if mode == 1:
     endless_duck_tourney() # TODO: this doesn't work!
         
     
