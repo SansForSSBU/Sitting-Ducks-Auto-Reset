@@ -7,10 +7,8 @@ import threading
 os.chdir("C:\Program Files (x86)\Sitting Ducks")
 
 mode = 2
-duck_creation_interval = 15.0 # seconds between making new ducks
-duck_finding_delay = 1.0 # seconds before trying to find new duck
-duck_testing_delay = 20.0 # seconds before starting the test
-test_time = 60.0 # seconds to test duck for
+
+test_time = 60.0 # seconds to test ducks for
 ducks = []
 best_duck = None
 best_dilation = 0.0
@@ -91,13 +89,11 @@ def endless_duck_tourney():
         thr.start()
         time.sleep(duck_creation_interval)
 
+
 if mode == 0:
     duck_deathmatch(find_ducks())
-    
-elif mode == 1:
-    endless_duck_tourney() # TODO: this doesn't work!
 
-if mode == 2:
+elif mode == 2:
     while True:
         for i in range(20):
             make_duck()
@@ -105,7 +101,11 @@ if mode == 2:
         duck_deathmatch(find_ducks())
         time.sleep(10)
 
-    
+duck_creation_interval = 15.0 # seconds between making new ducks
+duck_finding_delay = 1.0 # seconds before trying to find new duck
+duck_testing_delay = 20.0 # seconds before starting the test
+elif mode == 1:
+    endless_duck_tourney() # TODO: this doesn't work!
         
     
 
