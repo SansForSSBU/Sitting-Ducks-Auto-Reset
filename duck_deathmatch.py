@@ -4,17 +4,18 @@ import pymem
 import pymem.ptypes
 import time
 import threading
-os.chdir("C:\Program Files (x86)\Sitting Ducks")
+os.chdir("C:\Program Files (x86)\Sitting Ducks US 2005")
 
 mode = 2
-
+game = "US"
 test_time = 60.0 # seconds to test ducks for
 ducks = []
 best_duck = None
 best_dilation = 0.0
+dilation_threshold = 1.00
 
 def make_duck():
-    os.startfile("C:\Program Files (x86)\Sitting Ducks\overlay.exe")
+    os.startfile("C:\Program Files (x86)\Sitting Ducks US 2005\overlay.exe")
     
 def find_ducks():
     pids = psutil.pids()
@@ -25,8 +26,12 @@ def kill_duck(duck_pid):
     psutil.Process(duck_pid).terminate()
         
 def get_ducktime(duck_pid):
-    offset_1 = 0x1D5A50
-    offset_2 = 0x26DC
+    if (game == "US"):
+        offset_1 = 0x1D5A50
+        offset_2 = 0x26DC
+    if (game == "EU"):
+        offset_1 = 0x1D5A40
+        offset_2 = 0x26DC
     duck_mem = pymem.Pymem(duck_pid)
     base_addr = duck_mem.base_address
     ptr_1 = base_addr + offset_1
@@ -59,6 +64,10 @@ def duck_deathmatch(duck_pid_list):
             kill_duck(duck)
     print("Best dilation ", dilation)
     print("(This dilation value will likely be higher now the weak ducks have been purged, check with livesplit)")
+    if (best_dilation > dilation_threshold):
+        print("Reached threshold, exiting")
+        quit()
+    
 
 def duck_thread():
     global best_dilation
