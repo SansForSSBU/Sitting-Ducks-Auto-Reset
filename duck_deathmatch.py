@@ -4,18 +4,23 @@ import pymem
 import pymem.ptypes
 import time
 import threading
-os.chdir("C:\Program Files (x86)\Sitting Ducks US 2005")
+
+game = "EU"
+game_folder = "C:\Program Files (x86)\Sitting Ducks EU 2004"
+overlay_location = "C:\Program Files (x86)\Sitting Ducks EU 2004\overlay.exe"
 
 mode = 2
-game = "US"
 test_time = 60.0 # seconds to test ducks for
 ducks = []
 best_duck = None
 best_dilation = 0.0
-dilation_threshold = None
+dilation_threshold = 1.066
+
+os.chdir(game_folder)
+time_start = time.time()
 
 def make_duck():
-    os.startfile("C:\Program Files (x86)\Sitting Ducks US 2005\overlay.exe")
+    os.startfile(overlay_location)
     
 def find_ducks():
     pids = psutil.pids()
@@ -47,6 +52,7 @@ def test_duck(duck_pid):
     return dilation
 
 def duck_deathmatch(duck_pid_list):
+    global time_start
     ducktimes_before = {}
     best_dilation = 0.0
     best_duck = None
@@ -66,7 +72,8 @@ def duck_deathmatch(duck_pid_list):
     print("Best PID: ", best_duck)
     if (dilation_threshold != None):
         if (best_dilation > dilation_threshold):
-            print("Reached threshold, exiting")
+            time_end = time.time()
+            print("Reached threshold, took " + str(time_end - time_start) + " seconds, exiting")
             quit()
     
 
