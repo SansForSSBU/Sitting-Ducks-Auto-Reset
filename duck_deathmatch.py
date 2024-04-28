@@ -62,8 +62,8 @@ def duck_deathmatch(duck_pid_list):
             best_dilation = dilation
         else:
             kill_duck(duck)
-    print("Best dilation ", best_dilation)
-    print("(This dilation value will likely be higher now the weak ducks have been purged, check with livesplit)")
+    print("Best dilation: ", best_dilation)
+    print("Best PID: ", best_duck)
     if (dilation_threshold != None):
         if (best_dilation > dilation_threshold):
             print("Reached threshold, exiting")
