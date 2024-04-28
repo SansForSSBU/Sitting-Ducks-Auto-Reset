@@ -12,7 +12,7 @@ test_time = 60.0 # seconds to test ducks for
 ducks = []
 best_duck = None
 best_dilation = 0.0
-dilation_threshold = 1.00
+dilation_threshold = None
 
 def make_duck():
     os.startfile("C:\Program Files (x86)\Sitting Ducks US 2005\overlay.exe")
@@ -64,9 +64,10 @@ def duck_deathmatch(duck_pid_list):
             kill_duck(duck)
     print("Best dilation ", dilation)
     print("(This dilation value will likely be higher now the weak ducks have been purged, check with livesplit)")
-    if (best_dilation > dilation_threshold):
-        print("Reached threshold, exiting")
-        quit()
+    if (dilation_threshold != None):
+        if (best_dilation > dilation_threshold):
+            print("Reached threshold, exiting")
+            quit()
     
 
 def duck_thread():
